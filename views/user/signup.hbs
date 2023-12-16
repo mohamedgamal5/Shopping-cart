@@ -1,0 +1,57 @@
+<div class="col-md-4 offset-md-4" style="padding-top: 80px">
+  <h5 class="text-center">Sign Up</h5>
+  {{#each massages}}
+    <div class="alert alert-danger" role="alert">
+      {{this}}
+    </div>
+  {{/each}}
+  <form action="signup" method="post">
+    <div class="form-group">
+      <label for="email" class="form-label">email</label>
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Enter ur email"
+        name="email"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label">password</label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Enter ur password"
+        name="password"
+      />
+    </div>
+    <div class="form-group">
+      <label for="confirm-password" class="form-label">confirm-password</label>
+      <input
+        type="password"
+        class="form-control"
+        placeholder="Enter confirm-password"
+        name="confirm-password"
+      />
+    </div>
+    <input type="hidden" name="_csrf" value={{token}} />
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">
+        Sign up
+      </button>
+
+    </div>
+
+  </form>
+  <form action="signin" method="get">
+
+    <div class="text-center">
+      <p> OR </p>
+      <button type="submit" class="btn btn-primary">
+        Sign in
+      </button>
+
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,55 @@
+{{#each products }}
+  <div class="row">
+    {{#each this }}
+      <div class="col-sm-4">
+    <div class="card">
+    <div class="text-center">
+      <img src="{{this.imgPath}}"  class="card-img-top" alt="..." />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{this.productName}} </h5>
+      <p class="card-text">
+        screen :{{this.productDescription.screen}} Inch Fullscree,<br>
+        system : {{this.productDescription.system}}, <br>
+        Storage: {{this.productDescription.storage}}GB,<br>
+        RAM: {{this.productDescription.RAM}}GB, <br>
+        Processor :{{this.productDescription.processor}} ,<br>
+        Selfie Camera: {{this.productDescription.selfieCamera}}MP,<br>
+        Battery: {{this.productDescription.battery}}mAh
+      <div>
+        <div class="price float-start"> {{this.productPrice}}LE</div>
+        {{#if ../../checkUser}}
+          <a href="/addToCart/{{this._id}}/{{this.productPrice}}/{{this.productName}}" class="btn btn-success float-end">
+          Buy</a>  
+        {{else}}
+          <button type="button" class="btn btn-success float-end" data-toggle="modal" data-target="#exampleModalCenter">
+            Buy
+          </button>
+        {{/if}}
+        
+      </div>
+    </div>
+  </div>
+  </div>
+    {{/each}}
+{{/each}}
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/users/signin" class="btn btn-primary">Sing in</a>
+      </div>
+    </div>
+  </div>
+</div>

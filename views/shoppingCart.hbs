@@ -1,0 +1,23 @@
+<h1>{{totalProducts}}Items</h1>
+<h1>{{totalPrice}} LE</h1>
+{{#each selectedProduct }}
+  <div class="row">
+      <div class="col-sm-4">
+    <div class="card">
+    <div class="text-center">
+      <img src="/images/{{this.name}}.jpg"  class="card-img-top" alt="..." />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{this.name}} </h5>
+      <p class="card-text">
+        price :{{this.price}} LE,<br>
+        quantity : {{this.quantity}}, <br>
+      <div>
+          <a href="/removeFromCart/{{this._id}}/{{this.price}}/{{this.name}}" class="btn btn-danger float-end">
+          - </a>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+{{/each}}

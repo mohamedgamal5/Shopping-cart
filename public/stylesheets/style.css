@@ -1,0 +1,39 @@
+.container {
+    padding-bottom: 20px;
+}
+
+.row .col-sm-4 .card .text-center img {
+    max-width: 250px;
+    max-height: 2000px;
+    padding-top: 5px;
+}
+
+.card .card-title {
+    font-size: 25px;
+}
+
+.card .card-text {
+    font-size: 15px;
+}
+
+.price{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+}
+.row{
+    padding-top: 20px;
+}
+
+.col-md-4 .text-center {
+    padding-top: 20px;
+}
+
+.form-group .form-label{
+    padding-top: 20px;
+}
+
+.alert {
+    height: 30px;
+    padding-top: 0px;
+}

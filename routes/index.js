@@ -16,24 +16,67 @@ router.get("/", async (req, res, next) => {
   }
   var productsGrid = [];
   var colGrid = 3;
-  await Product.find()
-    .then((doc) => {
-      for (var i = 0; i < doc.length; i += colGrid) {
-        productsGrid.push(doc.slice(i, i + colGrid));
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  const page = req.params.page * 1 || 1;
+  const limit = 2;
+  const skip = (page - 1) * limit;
+  const products = await Product.find({}).skip(skip).limit(limit);
+  const products2 = await Product.find({});
+  var noPages = Math.ceil(products2.length / limit);
+  var pages = [];
+  for (var i = 0; i < noPages; i++) {
+    pages.push(i + 1);
+  }
+
+  for (var i = 0; i < products.length; i += colGrid) {
+    productsGrid.push(products.slice(i, i + colGrid));
+  }
+
   res.render("index", {
     title: "Shopping cart",
     products: productsGrid,
     checkUser: req.isAuthenticated(),
     totalProducts: totalProducts,
+    noPages: pages,
+    noPage: 1,
+  });
+});
+router.get("/page/:page", async (req, res, next) => {
+  var totalProducts = null;
+  if (req.isAuthenticated()) {
+    if (req.user.cart) {
+      totalProducts = req.user.cart.totalQuantity;
+    } else {
+      totalProducts = 0;
+    }
+  }
+  var productsGrid = [];
+  var colGrid = 3;
+  const page = req.params.page * 1 || 1;
+  const limit = 2;
+  const skip = (page - 1) * limit;
+  const products = await Product.find({}).skip(skip).limit(limit);
+  const products2 = await Product.find({});
+  var noPages = Math.ceil(products2.length / limit);
+  var pages = [];
+  for (var i = 0; i < noPages; i++) {
+    pages.push(i + 1);
+  }
+
+  for (var i = 0; i < products.length; i += colGrid) {
+    productsGrid.push(products.slice(i, i + colGrid));
+  }
+  console.log(`page ${req.params.page}`);
+  res.render("index", {
+    title: "Shopping cart",
+    products: productsGrid,
+    checkUser: req.isAuthenticated(),
+    totalProducts: totalProducts,
+    noPages: pages,
+    noPage: req.params.page,
   });
 });
 
-router.get("/addToCart/:id/:price/:name", (req, res, next) => {
+router.get("/addToCart/:id/:price/:name/:noPage", (req, res, next) => {
   const cartID = req.user._id;
   const newproductPrice = parseInt(req.params.price, 10);
   const newProduct = {
@@ -90,8 +133,22 @@ router.get("/addToCart/:id/:price/:name", (req, res, next) => {
     .catch((err) => {
       console.log(err);
     });
-
-  res.redirect("/");
+  if (req.params.noPage == -1) {
+    var productsGrid = [];
+    var colGrid = 3;
+    for (var i = 0; i < req.user.cart.selectedProduct.length; i += colGrid) {
+      productsGrid.push(req.user.cart.selectedProduct.slice(i, i + colGrid));
+    }
+    res.render("shoppingCart", {
+      userCart: req.user.cart,
+      checkUser: true,
+      selectedProduct: productsGrid,
+      totalProducts: req.user.cart.totalQuantity,
+      totalPrice: req.user.cart.totalPrice,
+    });
+  } else {
+    res.redirect("/page/" + req.params.noPage);
+  }
 });
 
 router.get("/removeFromCart/:id/:price/:name", (req, res, next) => {
@@ -148,14 +205,16 @@ router.get("/shoppingCart", (req, res, next) => {
     return;
   }
 
-  const userCart = req.user.cart;
-
-  const totalProducts = req.user.cart.totalQuantity;
+  var productsGrid = [];
+  var colGrid = 3;
+  for (var i = 0; i < req.user.cart.selectedProduct.length; i += colGrid) {
+    productsGrid.push(req.user.cart.selectedProduct.slice(i, i + colGrid));
+  }
 
   res.render("shoppingCart", {
-    userCart: userCart,
+    userCart: req.user.cart,
     checkUser: true,
-    selectedProduct: req.user.cart.selectedProduct,
+    selectedProduct: productsGrid,
     totalProducts: req.user.cart.totalQuantity,
     totalPrice: req.user.cart.totalPrice,
   });

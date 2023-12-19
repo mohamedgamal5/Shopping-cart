@@ -16,10 +16,11 @@
         Processor :{{this.productDescription.processor}} ,<br>
         Selfie Camera: {{this.productDescription.selfieCamera}}MP,<br>
         Battery: {{this.productDescription.battery}}mAh
+      </p>
       <div>
         <div class="price float-start"> {{this.productPrice}}LE</div>
         {{#if ../../checkUser}}
-          <a href="/addToCart/{{this._id}}/{{this.productPrice}}/{{this.productName}}" class="btn btn-success float-end">
+          <a href="/addToCart/{{this._id}}/{{this.productPrice}}/{{this.productName}}/{{../../noPage}}" class="btn btn-success float-end">
           Buy</a>  
         {{else}}
           <button type="button" class="btn btn-success float-end" data-toggle="modal" data-target="#exampleModalCenter">
@@ -29,9 +30,10 @@
         
       </div>
     </div>
-  </div>
+    </div>
   </div>
     {{/each}}
+  </div>
 {{/each}}
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

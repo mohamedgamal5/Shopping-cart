@@ -32,6 +32,14 @@ app.engine(
     extname: ".hbs",
     defaultLayout: "layout",
     handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: {
+      multiply: function (val1, val2) {
+        return val1 * val2;
+      },
+      addOne: function (val1) {
+        return val1 + 1;
+      },
+    },
   })
 );
 

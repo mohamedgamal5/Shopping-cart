@@ -1,23 +1,49 @@
-<h1>{{totalProducts}}Items</h1>
-<h1>{{totalPrice}} LE</h1>
-{{#each selectedProduct }}
+<h1>Shopping Cart</h1>
+<h2>{{totalProducts}}Items</h2>
+<h2>{{totalPrice}} LE</h2>
+{{#each selectedProduct}}
   <div class="row">
+    {{#each this}}
       <div class="col-sm-4">
-    <div class="card">
-    <div class="text-center">
-      <img src="/images/{{this.name}}.jpg"  class="card-img-top" alt="..." />
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">{{this.name}} </h5>
-      <p class="card-text">
-        price :{{this.price}} LE,<br>
-        quantity : {{this.quantity}}, <br>
-      <div>
-          <a href="/removeFromCart/{{this._id}}/{{this.price}}/{{this.name}}" class="btn btn-danger float-end">
-          - </a>
-        
+        <div class="card">
+          <div class="text-center">
+            <img
+              src="/images/{{this.name}}.jpg"
+              class="card-img-top"
+              alt="..."
+            />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{this.name}} </h5>
+            <p class="card-text">
+              price :
+              {{this.price}}
+              LE,<br />
+              quantity :
+              {{this.quantity}},
+              <br />
+              total price :
+              {{multiply @this.quantity @this.price}},
+              <br />
+              <div>
+                <a
+                  href="/addToCart/{{this._id}}/{{this.price}}/{{this.name}}/-1"
+                  class="btn btn-success float-start"
+                >
+                  +
+                </a>
+                <a
+                  href="/removeFromCart/{{this._id}}/{{this.price}}/{{this.name}}"
+                  class="btn btn-danger float-end"
+                >
+                  -
+                </a>
+
+              </div>
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    {{/each}}
   </div>
 {{/each}}

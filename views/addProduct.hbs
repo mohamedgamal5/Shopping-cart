@@ -1,0 +1,106 @@
+<div class="col-md-4 offset-md-4" style="padding-top: 80px">
+  <h5 class="text-center">Data</h5>
+  {{#each massages}}
+    <div class="alert alert-danger" role="alert">
+      {{this}}
+    </div>
+  {{/each}}
+  <form action="addProduct" method="post">
+    <div class="form-group">
+      <label for="imgPath" class="form-label">imgPath</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product imgPath"
+        name="imgPath"
+      />
+    </div>
+    <div class="form-group">
+      <label for="name" class="form-label">name.product</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product name"
+        name="name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="screen" class="form-label">screen</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product screen"
+        name="screen"
+      />
+    </div>
+    <div class="form-group">
+      <label for="system" class="form-label">system</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product system"
+        name="system"
+      />
+    </div>
+    <div class="form-group">
+      <label for="Storage" class="form-label">Storage</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product Storage"
+        name="storage"
+      />
+    </div>
+    <div class="form-group">
+      <label for="RAM" class="form-label">RAM</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product RAM"
+        name="RAM"
+      />
+    </div>
+    <div class="form-group">
+      <label for="processor " class="form-label">Processor</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product processor"
+        name="processor"
+      />
+    </div>
+    <div class="form-group">
+      <label for="selfieCamera " class="form-label">selfieCamera</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product selfieCamera"
+        name="selfieCamera"
+      />
+    </div>
+    <div class="form-group">
+      <label for="battery " class="form-label">battery</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product battery"
+        name="battery"
+      />
+    </div>
+    <div class="form-group">
+      <label for="price " class="form-label">price</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter product price"
+        name="price"
+      />
+    </div>
+    <input type="hidden" name="_csrf" value={{token}} />
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">
+        Add
+      </button>
+    </div>
+  </form>
+</div>

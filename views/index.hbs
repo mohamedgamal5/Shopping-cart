@@ -20,8 +20,20 @@
       <div>
         <div class="price float-start"> {{this.productPrice}}LE</div>
         {{#if ../../checkUser}}
+        {{#if ../../checkRole}}
+        {{!-- <form action="../removeProduct/{{this._id}}" method="post">
+          <button type="submit" class="btn btn-danger float-end">
+            <i class="fa-solid fa-trash-can"></i>  Delete
+          </button>
+        </form> --}}
+          <a href="/removeProduct/{{this._id}}" class="btn btn-danger float-end">
+          <i class="fa-solid fa-trash-can"></i>  Delete</a>  
+          <a href="/updateProduct/{{this._id}}/{{this.productPrice}}/{{this.productName}}/{{../../noPage}}" class="btn btn-success float-end" style="margin-right: 20px;">
+          Update</a>  
+        {{else}}
           <a href="/addToCart/{{this._id}}/{{this.productPrice}}/{{this.productName}}/{{../../noPage}}" class="btn btn-success float-end">
           Buy</a>  
+        {{/if}}
         {{else}}
           <button type="button" class="btn btn-success float-end" data-toggle="modal" data-target="#exampleModalCenter">
             Buy
@@ -35,6 +47,7 @@
     {{/each}}
   </div>
 {{/each}}
+
 
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -55,3 +68,32 @@
     </div>
   </div>
 </div>
+
+<footer>
+  <div class="position-absolute top-100 start-50 translate-middle">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="/previous/{{noPage}}"
+            aria-label="Previous"
+          >
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        {{#each noPages}}
+          <li class="page-item"><a
+              class="page-link"
+              href="/page/{{this}}"
+            >{{this}}</a></li>
+        {{/each}}
+        <li class="page-item">
+          <a class="page-link" href="/next/{{noPage}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</footer>

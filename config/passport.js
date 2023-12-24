@@ -72,7 +72,6 @@ passport.use(
     async (req, email, password, done) => {
       await User.findOne({ email: email })
         .then(async (user) => {
-          console.log(`use=>${user}`);
           if (user) {
             return done(
               null,
@@ -80,10 +79,12 @@ passport.use(
               req.flash("signupError", "This E-mail already exist")
             );
           }
+
           const newUser = new User({
             email: email,
             password: new User().hashPassword(password),
           });
+          console.log(`new User>${newUser}`);
           await newUser
             .save()
             .then((doc) => {

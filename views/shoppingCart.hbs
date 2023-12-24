@@ -23,17 +23,17 @@
               {{this.quantity}},
               <br />
               total price :
-              {{multiply @this.quantity @this.price}},
+              {{addOne @this.price}},
               <br />
               <div>
                 <a
-                  href="/addToCart/{{this._id}}/{{this.price}}/{{this.name}}/-1"
+                  href="/increaseProduct/{{this._id}}/{{this.price}}/{{this.name}}"
                   class="btn btn-success float-start"
                 >
                   +
                 </a>
                 <a
-                  href="/removeFromCart/{{this._id}}/{{this.price}}/{{this.name}}"
+                  href="/decreaseProductt/{{this._id}}/{{this.price}}/{{this.name}}"
                   class="btn btn-danger float-end"
                 >
                   -

@@ -9,6 +9,21 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+  },
+  role: {
+    type: String,
+    enum: ["user", "manager", "admin"],
+    default: "user",
+  },
+  phone: String,
+  profileImg: {
+    type: String,
+    default: "/images/user.jpg",
+  },
+  address: String,
+  postalCode: String,
 });
 userSchema.methods.hashPassword = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);

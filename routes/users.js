@@ -57,11 +57,25 @@ router.post(
 );
 
 router.get("/profile", isSignin, (req, res, next) => {
-  res.render("user/profile", {
-    checkUser: true,
-    checkProfile: false,
-    totalProducts: req.user.cart.totalQuntity,
-  });
+  User.findOne({ email: req.user.email })
+    .then((doc) => {
+      if (doc.cart) {
+        res.render("user/profile", {
+          checkUser: true,
+          checkProfile: false,
+          totalProducts: req.user.cart.totalQuantity,
+          user: doc,
+        });
+      } else {
+        res.render("user/profile", {
+          checkUser: true,
+          checkProfile: false,
+          totalProducts: 0,
+          user: doc,
+        });
+      }
+    })
+    .catch((err) => {});
 });
 
 router.get("/signin", notSignin, (req, res, next) => {
@@ -108,6 +122,59 @@ router.get("/logout", isSignin, (req, res, next) => {
     res.send(err);
   });
   res.redirect("signin");
+});
+router.get("/userData", isSignin, (req, res, next) => {
+  User.findOne({ email: req.user.email })
+    .then((doc) => {
+      res.render("user/userData", {
+        checkUser: true,
+        checkProfile: false,
+        token: req.csrfToken,
+        user: doc,
+      });
+    })
+    .catch((err) => {});
+});
+
+router.post("/userData", async (req, res, next) => {
+  var user;
+  await User.findOne({ email: req.user.email }).then((d) => {
+    user = d;
+  });
+  User.findOne({ email: req.user.email })
+    .then((doc) => {
+      if (req.body.userName.length > 0) {
+        doc.name = req.body.userName;
+      } else {
+        doc.name = user.name;
+      }
+      if (req.body.address.length > 0) {
+        doc.address = req.body.address;
+      } else {
+        doc.address = user.address;
+      }
+      if (req.body.phone.length > 0) {
+        doc.phone = req.body.phone;
+      } else {
+        doc.phone = user.phone;
+      }
+      if (req.body.postalCode.length > 0) {
+        doc.postalCode = req.body.postalCode;
+      } else {
+        doc.postalCode = user.postalCode;
+      }
+      if (req.body.profileImg.length > 0) {
+        doc.profileImg = req.body.profileImg;
+      } else {
+        doc.profileImg = user.profileImg;
+      }
+      console.log(doc);
+      User.updateOne({ email: req.user.email }, { $set: doc })
+        .then((doc2) => {})
+        .catch((err) => {});
+    })
+    .catch((err) => {});
+  res.redirect("profile");
 });
 
 function isSignin(req, res, next) {

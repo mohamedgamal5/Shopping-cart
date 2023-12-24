@@ -1,0 +1,61 @@
+<div class="col-md-4 offset-md-4" style="padding-top: 80px">
+  <h5 class="text-center">Data</h5>
+  {{#each massages}}
+    <div class="alert alert-danger" role="alert">
+      {{this}}
+    </div>
+  {{/each}}
+  <form action="userData" method="post">
+    <div class="form-group">
+      <label for="userName" class="form-label">userName</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter ur userName"
+        name="userName"
+      />
+    </div>
+    <div class="form-group">
+      <label for="phone" class="form-label">phone</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter ur phone"
+        name="phone"
+      />
+    </div>
+    <div class="form-group">
+      <label for="address" class="form-label">address</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter ur address"
+        name="address"
+      />
+    </div>
+    <div class="form-group">
+      <label for="profileImg" class="form-label">profileImg</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter ur profileImg"
+        name="profileImg"
+      />
+    </div>
+    <div class="form-group">
+      <label for="postalCode" class="form-label">postalCode</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter ur postalCode"
+        name="postalCode"
+      />
+    </div>
+    <input type="hidden" name="_csrf" value={{token}} />
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary">
+        Save
+      </button>
+    </div>
+  </form>
+</div>
